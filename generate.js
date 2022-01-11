@@ -5,7 +5,7 @@ const { getAllDirectories } = require('./helpers');
 
 const PROTO_DEFAULT_OPTIONS = {
   JS: `--js_out=import_style=ImportEs6,library=grpc,binary:gen`,
-  GO: `--go_out=plugins=:.`,
+  GO: `--go_out=plugins=grpc:.`,
 };
 
 /**
