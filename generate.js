@@ -4,15 +4,18 @@ const constants = require('./constants');
 const { getAllDirectories } = require('./helpers');
 
 const PROTO_DEFAULT_OPTIONS = {
-  JS: [`--js_out=library=grpc,binary:.`],
-  GO: [`--go_out=plugins=:.`],
+  JS: `--js_out=import_style=ImportEs6,library=grpc,binary:gen`,
+  GO: `--go_out=plugins=:.`,
 };
 
 /**
  *
- * @param {{lang: "JS" | "GO"} data
+ * @param {{lang: "JS" | "GO", js_out: string, go_out: string} data
  */
-module.exports = async ({ lang }) => {
+module.exports = async ({ lang, js_out, go_out }) => {
+  const jsOutOption = js_out ? `--js_out=${js_out}` : undefined;
+  const goOutOption = go_out ? `--go_out=${go_out}` : undefined;
+
   const paths = [constants.dir.temporaryFolder].concat(
     ...getAllDirectories(constants.dir.temporaryFolder)
   );
@@ -22,7 +25,7 @@ module.exports = async ({ lang }) => {
       try {
         const options = [
           ...paths.map((dir) => `--proto_path=${dir}`),
-          ...PROTO_DEFAULT_OPTIONS.JS,
+          jsOutOption ?? PROTO_DEFAULT_OPTIONS.JS,
         ].join(' ');
 
         await exec(
@@ -38,7 +41,7 @@ module.exports = async ({ lang }) => {
       try {
         const options = [
           ...paths.map((dir) => `--proto_path=${dir}`),
-          ...PROTO_DEFAULT_OPTIONS.GO,
+          goOutOption ?? PROTO_DEFAULT_OPTIONS.GO,
         ].join(' ');
 
         await exec(

@@ -1,6 +1,6 @@
 {
   "name": "grpc-generate",
-  "version": "1.0.7",
+  "version": "1.0.14",
   "description": "This package will generate .proto files from a Github repository.",
   "main": "index.js",
   "author": "Jeconias Santos <https://github.com/jeconias>",

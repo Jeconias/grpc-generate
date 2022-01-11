@@ -1,8 +1,9 @@
 const path = require('path');
 
-const DIR_BASE = __dirname;
-const CONFIG_FILE_NAME = 'grpc.generate.config.json';
+const DIR_BASE_LIB = __dirname;
+const DIR_ROOT = process.cwd();
 const TEMPORARY_REPOSITORY_NAME = 'repo-pbs-temp';
+const CONFIG_FILE_NAME = 'grpc.generate.config.json';
 const SUPPORTED_LANGUAGE = {
   JS: 'JS',
   GO: 'GO',
@@ -10,9 +11,12 @@ const SUPPORTED_LANGUAGE = {
 
 module.exports = {
   dir: {
-    defaultOutput: 'grpc',
-    configFile: path.join(process.cwd(), CONFIG_FILE_NAME),
-    temporaryFolder: path.join(DIR_BASE, TEMPORARY_REPOSITORY_NAME),
+    root: DIR_ROOT,
+    configFile: path.join(DIR_ROOT, CONFIG_FILE_NAME),
+    temporaryFolder: path.join(DIR_BASE_LIB, TEMPORARY_REPOSITORY_NAME),
+  },
+  onlyProto: {
+    defaultOutput: 'proto',
   },
   supportedLanguageOutput: SUPPORTED_LANGUAGE,
   configFileName: CONFIG_FILE_NAME,

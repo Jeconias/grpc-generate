@@ -2,6 +2,8 @@ const { resolve, join } = require('path');
 const fs = require('fs');
 const NodeGit = require('nodegit');
 const constants = require('./constants');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 /**
  *
@@ -58,4 +60,25 @@ const getAllDirectories = (path) => {
   return result;
 };
 
-module.exports = { readFile, cloneRepo, removeTempFolder, getAllDirectories };
+/**
+ *
+ * @param {string} outputDir
+ */
+const copyFilesFromGithubRepo = async (outputDir) => {
+  return await exec(
+    `cd ${
+      constants.dir.temporaryFolder
+    } && find -name '*.proto' | cpio -pdm ${join(
+      constants.dir.root,
+      outputDir
+    )}`
+  );
+};
+
+module.exports = {
+  readFile,
+  cloneRepo,
+  removeTempFolder,
+  getAllDirectories,
+  copyFilesFromGithubRepo,
+};
