@@ -1,11 +1,12 @@
 {
   "name": "grpc-generate",
-  "version": "1.0.15",
+  "version": "1.1.0",
   "description": "This package will generate .proto files from a Github repository.",
   "main": "index.js",
   "author": "Jeconias Santos <https://github.com/jeconias>",
   "license": "MIT",
   "repository": "https://github.com/Jeconias/grpc-generate",
+  "type": "commonjs",
   "keywords": [
     "grpc",
     "grpc-generate",
@@ -19,5 +20,8 @@
     "inquirer": "^8.2.0",
     "nodegit": "^0.27.0"
   },
-  "bin": "index.js"
+  "bin": "bin/index.js",
+  "scripts": {
+    "dev": "node ./bin/index.js"
+  }
 }
